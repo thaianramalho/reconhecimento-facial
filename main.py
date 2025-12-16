@@ -10,7 +10,6 @@ from reconhecimento import ReconhecimentoFacial
 
 
 def exibir_banner():
-    """Exibe o banner do sistema"""
     banner = """
     ╔═══════════════════════════════════════════════════════╗
     ║                                                       ║
@@ -24,7 +23,6 @@ def exibir_banner():
 
 
 def menu_principal():
-    """Menu principal do sistema"""
     cadastro = CadastroFacial()
     reconhecimento = ReconhecimentoFacial()
     
