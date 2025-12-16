@@ -2,7 +2,23 @@
 
 Sistema completo de reconhecimento facial com cadastro de pessoas e identificação em tempo real usando Python, OpenCV e face_recognition.
 
+**🌐 Agora com Interface Web!** Acesse via navegador com suporte à câmera. [Ver documentação web →](WEB_README.md)
+
 ## 📋 Funcionalidades
+
+### 🖥️ Versão CLI (Terminal)
+- Captura de rostos via webcam
+- Reconhecimento em tempo real
+- Reconhecimento em imagens estáticas
+- Interface de texto interativa
+
+### 🌐 Versão Web (Navegador)
+- Interface moderna e responsiva
+- Acesso à webcam do navegador
+- Reconhecimento em tempo real na web
+- Cadastro via interface gráfica
+- Gerenciamento visual de pessoas
+- **[Ver documentação completa →](WEB_README.md)**
 
 ### 📝 Cadastro
 - Captura de rostos via webcam
@@ -98,6 +114,34 @@ pip install -r requirements.txt
 ```
 
 ## 💻 Como Usar
+
+### 🌐 Versão Web (Recomendado)
+
+**Iniciar servidor web:**
+```bash
+./start_web.sh
+```
+
+Ou manualmente:
+```bash
+cd web
+php -S localhost:8000
+```
+
+**Acesse no navegador:** http://localhost:8000
+
+**Recursos da versão web:**
+- ✅ Interface gráfica moderna
+- ✅ Acesso à webcam do navegador  
+- ✅ Reconhecimento em tempo real
+- ✅ Gerenciamento visual
+- ✅ Responsivo (funciona em tablets e smartphones)
+
+📖 **[Documentação completa da versão web →](WEB_README.md)**
+
+---
+
+### 🖥️ Versão CLI (Terminal)
 
 ### Ativar o Ambiente Virtual
 

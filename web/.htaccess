@@ -1,0 +1,20 @@
+# Bloquear acesso direto a arquivos Python
+<Files "*.py">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Proteger diretórios sensíveis
+<DirectoryMatch "^.*/\.(git|venv)/">
+    Order Allow,Deny
+    Deny from all
+</DirectoryMatch>
+
+# Desabilitar listagem de diretórios
+Options -Indexes
+
+# Habilitar URL amigáveis
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
