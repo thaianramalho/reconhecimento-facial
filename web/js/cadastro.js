@@ -12,8 +12,29 @@ let resultDiv = document.getElementById('result');
 let stream = null;
 let capturedImage = null;
 
+// Verificar suporte do navegador
+function checkBrowserSupport() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('Seu navegador não suporta acesso à câmera.\n\nPor favor, use:\n- Chrome 53+\n- Firefox 36+\n- Safari 11+\n- Edge 12+\n\nOu verifique se está acessando via HTTPS ou localhost.');
+        startCameraBtn.disabled = true;
+        return false;
+    }
+    return true;
+}
+
+// Verificar suporte ao carregar a página
+if (!checkBrowserSupport()) {
+    resultDiv.innerHTML = '<strong>⚠️ Atenção!</strong><br>Seu navegador não suporta acesso à câmera ou a página não está sendo servida via HTTPS/localhost.';
+    resultDiv.className = 'result-container error';
+    resultDiv.style.display = 'block';
+}
+
 // Iniciar câmera
 startCameraBtn.addEventListener('click', async () => {
+    if (!checkBrowserSupport()) {
+        return;
+    }
+    
     try {
         stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
@@ -32,7 +53,20 @@ startCameraBtn.addEventListener('click', async () => {
         resultDiv.innerHTML = '';
         resultDiv.className = 'result-container';
     } catch (error) {
-        alert('Erro ao acessar a câmera: ' + error.message);
+        let errorMsg = 'Erro ao acessar a câmera: ' + error.message;
+        
+        if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+            errorMsg = 'Permissão negada! Por favor, permita o acesso à câmera nas configurações do navegador.';
+        } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+            errorMsg = 'Nenhuma câmera encontrada! Verifique se há uma câmera conectada ao dispositivo.';
+        } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+            errorMsg = 'Câmera em uso! Feche outros programas que possam estar usando a câmera.';
+        }
+        
+        alert(errorMsg);
+        resultDiv.innerHTML = '<strong>❌ Erro!</strong><br>' + errorMsg;
+        resultDiv.className = 'result-container error';
+        resultDiv.style.display = 'block';
     }
 });
 
@@ -62,6 +96,10 @@ captureBtn.addEventListener('click', () => {
 
 // Tirar outra foto
 retakeBtn.addEventListener('click', async () => {
+    if (!checkBrowserSupport()) {
+        return;
+    }
+    
     try {
         stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 

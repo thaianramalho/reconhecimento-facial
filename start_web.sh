@@ -35,19 +35,23 @@ while netstat -tuln 2>/dev/null | grep -q ":$PORT " || ss -tuln 2>/dev/null | gr
     fi
 done
 
+# Obter IP local
+LOCAL_IP=$(hostname -I | awk '{print $1}')
+
 echo "✅ Ambiente virtual: OK"
 echo "✅ PHP instalado: $(php -v | head -n 1)"
 echo "✅ Porta disponível: $PORT"
+echo "✅ IP Local: $LOCAL_IP"
 echo ""
-echo "🚀 Iniciando servidor em http://localhost:$PORT"
+echo "🚀 Iniciando servidor em:"
+echo "   - Local:  http://localhost:$PORT"
+echo "   - Rede:   http://$LOCAL_IP:$PORT"
 echo ""
-echo "📋 Instruções:"
-echo "   - Acesse http://localhost:$PORT no navegador"
-echo "   - Permita o acesso à webcam quando solicitado"
+echo "📋 Comandos:"
 echo "   - Pressione Ctrl+C para parar o servidor"
 echo ""
 echo "=================================================="
 echo ""
 
 cd web
-php -S localhost:$PORT
+php -S 0.0.0.0:$PORT
