@@ -72,13 +72,31 @@ startCameraBtn.addEventListener('click', async () => {
 
 // Capturar foto
 captureBtn.addEventListener('click', () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Reduzir resolução para evitar erro 413 (Payload Too Large)
+    const maxWidth = 800;
+    const maxHeight = 600;
+    
+    let width = video.videoWidth;
+    let height = video.videoHeight;
+    
+    // Calcular proporção mantendo aspecto
+    if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+    }
+    if (height > maxHeight) {
+        width = (width * maxHeight) / height;
+        height = maxHeight;
+    }
+    
+    canvas.width = width;
+    canvas.height = height;
     
     let context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, width, height);
     
-    capturedImage = canvas.toDataURL('image/png');
+    // Comprimir imagem com qualidade 0.7 para reduzir tamanho
+    capturedImage = canvas.toDataURL('image/jpeg', 0.7);
     previewImage.src = capturedImage;
     
     video.style.display = 'none';

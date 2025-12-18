@@ -16,9 +16,11 @@ try {
                     exit;
                 }
                 
-                // Decodificar imagem base64
+                // Decodificar imagem base64 (suporta PNG e JPEG)
                 $imageData = $data['image'];
                 $imageData = str_replace('data:image/png;base64,', '', $imageData);
+                $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+                $imageData = str_replace('data:image/jpg;base64,', '', $imageData);
                 $imageData = str_replace(' ', '+', $imageData);
                 $imageData = base64_decode($imageData);
                 
@@ -27,8 +29,8 @@ try {
                     exit;
                 }
                 
-                // Salvar imagem temporária
-                $tempFile = TEMP_PATH . '/' . uniqid() . '.png';
+                // Salvar imagem temporária (usar JPG pois JavaScript envia JPEG)
+                $tempFile = TEMP_PATH . '/' . uniqid() . '.jpg';
                 
                 if (!file_put_contents($tempFile, $imageData)) {
                     echo json_encode(['success' => false, 'message' => 'Erro ao salvar imagem']);

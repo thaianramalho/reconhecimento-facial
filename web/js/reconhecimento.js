@@ -138,14 +138,31 @@ async function recognizeFrame() {
     }
     
     try {
-        // Capturar frame do vídeo
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        // Capturar frame do vídeo com redução de resolução
+        const maxWidth = 800;
+        const maxHeight = 600;
+        
+        let width = video.videoWidth;
+        let height = video.videoHeight;
+        
+        // Calcular proporção mantendo aspecto
+        if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+        }
+        if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
         
         let context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        context.drawImage(video, 0, 0, width, height);
         
-        const imageData = canvas.toDataURL('image/png');
+        // Comprimir imagem com qualidade 0.7 para reduzir tamanho
+        const imageData = canvas.toDataURL('image/jpeg', 0.7);
         
         statusDiv.textContent = 'Processando...';
         statusDiv.style.color = '#ff9800';

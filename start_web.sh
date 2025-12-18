@@ -26,14 +26,14 @@ if ! command -v php &> /dev/null; then
 fi
 
 # Encontrar porta disponível (método mais confiável)
-PORT=8000
-while netstat -tuln 2>/dev/null | grep -q ":$PORT " || ss -tuln 2>/dev/null | grep -q ":$PORT "; do
-    PORT=$((PORT + 1))
-    if [ $PORT -gt 8100 ]; then
-        echo "❌ Erro: Nenhuma porta disponível encontrada entre 8000 e 8100"
-        exit 1
-    fi
-done
+PORT=8888
+#while netstat -tuln 2>/dev/null | grep -q ":$PORT " || ss -tuln 2>/dev/null | grep -q ":$PORT "; do
+#    PORT=$((PORT + 1))
+#    if [ $PORT -gt 8100 ]; then
+#        echo "❌ Erro: Nenhuma porta disponível encontrada entre 8000 e 8100"
+#        exit 1
+#    fi
+#done
 
 # Obter IP local
 LOCAL_IP=$(hostname -I | awk '{print $1}')
@@ -54,4 +54,5 @@ echo "=================================================="
 echo ""
 
 cd web
-php -S 0.0.0.0:$PORT
+# Iniciar servidor PHP com limites maiores para upload
+php -d post_max_size=50M -d upload_max_filesize=50M -d memory_limit=256M -S 0.0.0.0:$PORT
