@@ -171,7 +171,7 @@ python main.py
 ### Menu Principal
 
 O sistema possui um menu interativo com as seguintes opções:
-
+ Interface gráfica (GUI) com Tkinter ou PyQt
 #### 📝 CADASTRO
 1. **Cadastrar nova pessoa** - Captura foto via webcam e salva o encoding facial
 2. **Listar pessoas cadastradas** - Mostra todas as pessoas no banco de dados
@@ -299,35 +299,3 @@ Para ocultar o contador de FPS, defina `mostrar_fps=False` ao chamar `iniciar_re
 - **face-recognition**: Detecção e reconhecimento facial
 - **numpy**: Operações numéricas
 - **Pillow**: Manipulação de imagens
-
-## 📝 Licença
-
-Este projeto é de código aberto e está disponível para uso pessoal e educacional.
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-- Reportar bugs
-- Sugerir novas funcionalidades
-- Enviar pull requests
-
-## 📧 Suporte
-
-Se encontrar problemas ou tiver dúvidas:
-1. Verifique a seção de Solução de Problemas
-2. Leia a documentação das bibliotecas utilizadas
-3. Abra uma issue no repositório
-
-## 🎯 Próximas Funcionalidades
-
-- [ ] Interface gráfica (GUI) com Tkinter ou PyQt
-- [ ] Exportação de relatórios de reconhecimento
-- [ ] Suporte a múltiplas câmeras
-- [ ] Histórico de detecções
-- [ ] API REST para integração
-- [ ] Reconhecimento em vídeos
-- [ ] Modo de treinamento aprimorado
-
----
-
-**Desenvolvido com ❤️ usando Python, OpenCV e face_recognition**
